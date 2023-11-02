@@ -10,9 +10,11 @@ dependencies:
   grpc: ^3.2.4
   loggy: ^2.0.3
   mysql1: ^0.20.0
+  protobuf: ^3.1.0
   
 dev_dependencies:
   build_runner:
+  mockito: ^5.4.2
   auto_factory: ^3.0.0
   lints: ^2.0.0
   test: ^1.21.0
