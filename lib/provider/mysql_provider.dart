@@ -4,7 +4,7 @@ import 'package:mysql1/mysql1.dart';
 part 'mysql_provider.g.dart';
 
 @Provider()
-class CustomerRepoProvider implements ProviderBase<MySqlConnection> {
+class SqlProvider implements ProviderBase<MySqlConnection> {
   MySqlConnection? _instance;
 
   @override

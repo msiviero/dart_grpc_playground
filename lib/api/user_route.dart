@@ -3,11 +3,16 @@ import 'package:grpc/grpc.dart';
 import 'package:loggy/loggy.dart';
 
 import '../grpc_gen/user_route.pbgrpc.dart';
+import '../service/user_service.dart';
 
 part 'user_route.g.dart';
 
 @Singleton()
 class UserRoute extends UserRouteServiceBase with UiLoggy {
+  final UserService _userService;
+
+  UserRoute(this._userService);
+
   @override
   Future<UserMessage> getUser(ServiceCall call, UserRequest request) {
     throw UnimplementedError();
