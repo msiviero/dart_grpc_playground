@@ -4,3 +4,6 @@
 
 build
 lib/grpc_gen
+
+*.mocks.dart
+*.g.dart
