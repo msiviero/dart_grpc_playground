@@ -1,23 +1,23 @@
 import 'package:auto_factory_annotation/auto_factory_annotation.dart';
-import 'package:mysql1/mysql1.dart';
+import 'package:mysql_client/mysql_client.dart';
 
 part 'mysql_provider.g.dart';
 
 @Provider()
-class SqlProvider implements ProviderBase<MySqlConnection> {
-  MySqlConnection? _instance;
+class SqlProvider implements ProviderBase<MySQLConnectionPool> {
+  MySQLConnectionPool? _instance;
 
   @override
-  Future<MySqlConnection> provide() async {
-    final settings = ConnectionSettings(
+  Future<MySQLConnectionPool> provide() async {
+    _instance ??= MySQLConnectionPool(
       host: '127.0.0.1',
       port: 3306,
-      user: 'root',
+      userName: 'root',
       password: 'example',
-      db: 'dart_playground',
+      maxConnections: 10,
+      databaseName: 'dart_playground',
+      secure: false,
     );
-
-    _instance ??= await MySqlConnection.connect(settings);
 
     return _instance!;
   }

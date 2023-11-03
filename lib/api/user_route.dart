@@ -14,17 +14,42 @@ class UserRoute extends UserRouteServiceBase with UiLoggy {
   UserRoute(this._userService);
 
   @override
-  Future<UserMessage> getUser(ServiceCall call, UserRequest request) {
-    throw UnimplementedError();
+  Future<UserMessage> getUser(ServiceCall call, UserRequest request) async {
+    final user = await _userService.get(request.id);
+    if (user == null) {
+      throw GrpcError.notFound("No user found with id ${request.id}");
+    }
+    return user.toUserMessage();
   }
 
   @override
-  Stream<UserMessage> getUsers(ServiceCall call, EmptyRequest request) {
-    throw UnimplementedError();
+  Stream<UserMessage> getUsers(ServiceCall call, EmptyRequest request) async* {
+    await for (final user in _userService.list()) {
+      yield user.toUserMessage();
+    }
   }
 
   @override
-  Future<EmptyReply> putUser(ServiceCall call, UserMessage request) {
-    throw UnimplementedError();
+  Future<EmptyReply> putUser(ServiceCall call, UserMessage request) async {
+    await _userService.put(request.toUser());
+    return EmptyReply();
   }
+}
+
+extension _ToUserMessage on User {
+  UserMessage toUserMessage() => UserMessage(
+        id: id,
+        name: name,
+        email: email,
+        age: age,
+      );
+}
+
+extension _ToUser on UserMessage {
+  User toUser() => User(
+        id: id,
+        name: name,
+        email: email,
+        age: age,
+      );
 }

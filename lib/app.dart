@@ -15,12 +15,15 @@ class App with UiLoggy {
   App(this._userRoute);
 
   Future<void> run() async {
-    loggy.info("Hello world");
+    final port = int.tryParse(Platform.environment["PORT"] ?? "50051");
 
     Server.create(services: [
       _userRoute,
     ]).serve(
-        address: "0.0.0.0",
-        port: int.tryParse(Platform.environment["PORT"] ?? "50051"));
+      address: "0.0.0.0",
+      port: port,
+    );
+
+    loggy.info("App started on port $port");
   }
 }
