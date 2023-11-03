@@ -29,5 +29,6 @@ grpc_load_test:
 		--proto ./proto/user_route.proto \
 		--call  UserRoute.GetUsers \
 		-m      '{"trace_id":"{{.RequestNumber}}", "timestamp":"{{.TimestampUnixNano}}"}' \
+		--total 10000 \
 		-O html \
 		0.0.0.0:50051 > load_test.html
