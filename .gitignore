@@ -7,3 +7,5 @@ lib/grpc_gen
 
 *.mocks.dart
 *.g.dart
+
+load_test.html
